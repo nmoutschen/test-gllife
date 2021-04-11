@@ -49,6 +49,16 @@ export default class ShaderScene {
     renderer.render(this.scene, this.camera);
     renderer.setRenderTarget(null);
 
+    // Resize phase 2
+    // Only resize inTarget after rendering
+    if (this.outTarget.width !== this.inTarget.width
+      || this.outTarget.height !== this.inTarget.height) {
+      this.inTarget.setSize(
+        this.outTarget.width,
+        this.outTarget.height,
+      );
+    }
+
     // Swap targets
     const tempTarget = this.outTarget;
     this.outTarget = this.inTarget;
@@ -58,7 +68,7 @@ export default class ShaderScene {
   }
 
   onResize(width, height) {
-    this.inTarget.setSize(width, height);
+    // Only resize the outTarget to not lose data from the inTarget.
     this.outTarget.setSize(width, height);
     this.uniforms.resolution.value.x = width;
     this.uniforms.resolution.value.y = height;

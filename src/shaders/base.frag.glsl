@@ -37,8 +37,11 @@ vec4 getColAt(vec2 pos) {
 int getAdjSum(vec2 pos) {
   int s = 0;
   vec4 col = vec4(0.);
+  vec2 cPos = pos;
   for(int i = 0; i < offsets.length(); i++) {
-    col = getColAt(pos + offsets[i]);
+    cPos = mod(pos + offsets[i], resolution);
+
+    col = getColAt(cPos);
     if (col.g > 0.5) {
       s++;
     }
@@ -64,6 +67,7 @@ void main() {
     } else {
       pc_fragColor = LIVE;
     }
+  // Dead
   } else if(s == 3) {
     pc_fragColor = NEWLIVE;
   } else {
