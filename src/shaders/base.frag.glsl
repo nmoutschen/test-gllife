@@ -55,7 +55,7 @@ void main() {
 
   // Initialization
   if(col.a < 0.5) {
-    pc_fragColor = noise(pos/2.) < 0.7 ? LIVE : DEAD;
+    pc_fragColor = noise(pos/2.) < 0.75 ? LIVE : DEAD;
     return;
   }
 
